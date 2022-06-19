@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ld.blog.infra.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="com.ld.blog.domain.entity.Article">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="author" jdbcType="BIGINT" property="author"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="last_updated_date" jdbcType="TIMESTAMP" property="lastUpdatedDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, title,img, author,status, content,description, create_date, last_updated_date
+    </sql>
+
+</mapper>

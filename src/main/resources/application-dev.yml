@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    #username: root
+    #password: 123456789
+    url: jdbc:mysql://127.0.0.1:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: afs@gs45%
+server:
+  port: 9090
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #mapper-locations: classpath:mapper/*.xml
+    #type-aliases-package: com.ld.blog.mapper
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+blog:
+  file-sever-path: E:/FileSever

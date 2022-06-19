@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ld.blog.infra.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.ld.blog.domain.entity.SysPermission">
+        <id column="sys_permission_id" jdbcType="BIGINT" property="id"/>
+        <result column="sys_permission_name" jdbcType="VARCHAR" property="name"/>
+        <result column="sys_permission_type" jdbcType="VARCHAR" property="type"/>
+        <result column="sys_permission_url" jdbcType="VARCHAR" property="url"/>
+        <result column="sys_permission_public_access" jdbcType="VARCHAR" property="publicAccess"/>
+        <result column="sys_permission_login_access" jdbcType="VARCHAR" property="loginAccess"/>
+        <result column="sys_permission_percode" jdbcType="VARCHAR" property="percode"/>
+        <result column="sys_permission_parentid" jdbcType="BIGINT" property="parentid"/>
+        <result column="sys_permission_parentids" jdbcType="VARCHAR" property="parentids"/>
+        <result column="sys_permission_sortstring" jdbcType="VARCHAR" property="sortstring"/>
+        <result column="sys_permission_available" jdbcType="BOOLEAN" property="available"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        sys_permission.id as sys_permission_id, sys_permission.`name` as `sys_permission_name`,
+    sys_permission.`type` as `sys_permission_type`, sys_permission.url as sys_permission_url,
+    sys_permission.percode as sys_permission_percode, sys_permission.parentid as sys_permission_parentid,
+    sys_permission.parentids as sys_permission_parentids, sys_permission.sortstring as sys_permission_sortstring,
+    sys_permission.available as sys_permission_available
+    </sql>
+    <update id="batchUpdate">
+        update `sys_permission`
+        set name =
+        <foreach collection="permissions" item="permission" separator=" " open="case id" close="end ,">
+            when #{permission.id} then #{permission.name}
+        </foreach>
+        public_access =
+        <foreach collection="permissions" item="permission" separator=" " open="case id" close="end ,">
+            when #{permission.id} then #{permission.publicAccess}
+        </foreach>
+        login_access =
+        <foreach collection="permissions" item="permission" separator=" " open="case id" close="end ,">
+            when #{permission.id} then #{permission.loginAccess}
+        </foreach>
+        url =
+        <foreach collection="permissions" item="permission" separator=" " open="case id" close="end">
+            when #{permission.id} then #{permission.url}
+        </foreach>
+        where id in
+        <foreach collection="permissions" item="permission" separator="," open="(" close=")">
+            #{permission.id}
+        </foreach>
+    </update>
+
+</mapper>

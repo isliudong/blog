@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ld.blog.admin.infra.mapper.RouteMapper">
+
+    <resultMap id="BaseResultMap" type="com.ld.blog.admin.domain.entity.Route">
+        <!--@Table -->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="roles" column="roles" jdbcType="VARCHAR"/>
+        <result property="redirect" column="redirect" jdbcType="VARCHAR"/>
+        <result property="component" column="component" jdbcType="VARCHAR"/>
+        <result property="hidden" column="hidden" jdbcType="INTEGER"/>
+        <result property="affix" column="affix" jdbcType="INTEGER"/>
+        <result property="noCache" column="no_cache" jdbcType="INTEGER"/>
+        <result property="parentIdPath" column="parent_id_path" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="alwaysShow" column="always_show" jdbcType="INTEGER"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdatedDate" column="last_updated_date" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseSql">
+        r.id,
+        r.name,
+        r.title,
+        r.path,
+        r.roles,
+        r.no_cache,
+        r.redirect,
+        r.component,
+        r.hidden,
+        r.always_show,
+        r.icon,
+        r.affix,
+        r.parent_id_path,
+        r.parent_id,
+        r.create_date,
+        r.last_updated_date,
+        r.create_by
+    </sql>
+
+    <sql id="BasePublicSql">
+        r.id,
+        r.name,
+        r.title,
+        r.path,
+        r.redirect,
+        r.component,
+        r.hidden,
+        r.always_show,
+        r.icon,
+        r.affix,
+        r.parent_id_path,
+        r.parent_id
+    </sql>
+
+    <select id="selectRoleRoutes" resultType="com.ld.blog.admin.domain.entity.Route">
+        select
+        <include refid="BaseSql"/>
+        from route r
+        <where>
+            <if test="roleId !=null">
+                <bind name="roleIdLike" value="'%,' + roleId + ',%'"/>
+                <bind name="roleIdLeftLike" value="roleId + ',%'"/>
+                <bind name="roleIdRightLike" value="'%,'+roleId"/>
+                and (r.roles =#{roleId} or r.roles like #{roleIdLike} or r.roles like #{roleIdLeftLike} or r.roles like
+                #{roleIdRightLike})
+            </if>
+        </where>
+    </select>
+</mapper>

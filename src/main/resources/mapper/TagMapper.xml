@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ld.blog.infra.mapper.TagMapper">
+    <resultMap id="BaseResultMap" type="com.ld.blog.domain.entity.Tag">
+        <id column="tag_id" jdbcType="BIGINT" property="id"/>
+        <result column="tag_name" jdbcType="VARCHAR" property="name"/>
+        <result column="tag_create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="tag_last_updated_date" jdbcType="TIMESTAMP" property="lastUpdatedDate"/>
+        <result column="tag_create_by" jdbcType="BIGINT" property="createBy"/>
+        <result column="tag_last_updated_by" jdbcType="BIGINT" property="lastUpdatedBy"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        tag.id as tag_id, tag.`name` as `tag_name`, tag.create_date as tag_create_date, tag.last_updated_date as tag_last_updated_date,
+    tag.create_by as tag_create_by, tag.last_updated_by as tag_last_updated_by
+    </sql>
+    <select id="selectArticleTags" resultType="com.ld.blog.domain.entity.Tag">
+        select tg.id, tg.name
+        from tag tg
+                 right join article_tag_rel atr on tg.id = atr.tag_id
+        where atr.article_id = #{id}
+    </select>
+</mapper>

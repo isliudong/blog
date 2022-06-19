@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ld.blog.admin.infra.mapper.ArticlePubMapper">
+
+    <resultMap id="BaseResultMap" type="com.ld.blog.admin.domain.entity.ArticlePub">
+        <!--@Table -->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="OTHER"/>
+        <result property="img" column="img" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="author" column="author" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="views" column="views" jdbcType="INTEGER"/>
+        <result property="comments" column="comments" jdbcType="INTEGER"/>
+        <result property="likes" column="likes" jdbcType="INTEGER"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+        <result property="lastUpdatedDate" column="last_updated_date" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="BaseSql">
+        ap.id,
+        ap.description,
+        ap.img,
+        ap.title,
+        ap.author,
+        ap.content,
+        ap.views,
+        ap.comments,
+        ap.likes,
+        ap.create_date,
+        ap.last_updated_date,
+        ap.create_by,
+        'published' as 'status'
+    </sql>
+
+    <select id="selectList" resultType="com.ld.blog.admin.domain.entity.ArticlePub">
+        select
+        <include refid="BaseSql"/>
+        from article_pub ap
+        <where>
+            <if test="id !=null">
+                and ap.id = #{id,jdbcType = INTEGER}
+            </if>
+        </where>
+    </select>
+</mapper>
