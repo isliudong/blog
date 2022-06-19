@@ -39,7 +39,6 @@ public class ArticleComment extends AuditDomain implements Serializable {
      * 评论中的图片
      */
     @TableField(exist = false)
-    @Length(max = 200)
     private String imgSrc;
 
     private Long parentId;
